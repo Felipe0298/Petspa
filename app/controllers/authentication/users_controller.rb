@@ -9,13 +9,15 @@ class Authentication::UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: 'User was succesfully created'
     else
-      redirect_to :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :username, :phone, :password, :password_confirmation, :role)
+    params.require(:user).permit(:first_name, :last_name, :email, :username, :phone, 
+                                  :password, :password_confirmation, :role, :avatar
+                                )
   end
 end
