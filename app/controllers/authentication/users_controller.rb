@@ -13,6 +13,14 @@ class Authentication::UsersController < ApplicationController
     end
   end
 
+  def edit
+    
+  end
+
+  def update
+    
+  end
+
   private
 
   def user_params
