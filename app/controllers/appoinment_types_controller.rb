@@ -1,4 +1,6 @@
 class AppoinmentTypesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authorize!
   before_action :set_appoinment_type, only: %i[ show edit update destroy ]
 
   # GET /appoinment_types or /appoinment_types.json
@@ -58,6 +60,16 @@ class AppoinmentTypesController < ApplicationController
   end
 
   private
+
+  def authorize! record = nil
+    is_allowed = if record
+      record.user_id == current_user.id
+    else
+      current_user.admin?
+    end
+
+    raise NotAuthorizedError unless is_allowed
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_appoinment_type
       @appoinment_type = AppoinmentType.find(params[:id])

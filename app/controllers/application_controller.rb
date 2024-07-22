@@ -1,6 +1,12 @@
 class ApplicationController < ActionController::Base
   around_action :switch_locale
 
+  class NotAuthorizedError < StandardError; end
+
+  rescue_from NotAuthorizedError do
+    redirect_to root_path, alert: "You are not authorized to perform that action."
+  end
+
   def switch_locale(&action)
     I18n.with_locale(locale_from_header, &action)
   end
