@@ -14,15 +14,19 @@ class AppoinmentsController < ApplicationController
   # GET /appoinments/new
   def new
     @appoinment = Appoinment.new
+    appoinment_type = params[:appoinment_type].gsub("-"," ")
+    @appoinment_type = AppoinmentType.find_by(name: appoinment_type)
   end
 
   # GET /appoinments/1/edit
   def edit
+
   end
 
   # POST /appoinments or /appoinments.json
   def create
-    @appoinment = current_user.appoinment.new(appoinment_params.merge(client: current_user))
+    @appoinment = current_user.appoinments.new(appoinment_params.merge(client: current_user))
+    @appoinment_type = AppoinmentType.find(params[:appoinment][:appoinment_type_id])
 
     respond_to do |format|
       if @appoinment.save
@@ -66,8 +70,8 @@ class AppoinmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def appoinment_params
-      params.require(:appoinment).permit(:status, :appointment_type_id,
+      params.require(:appoinment).permit(:status, :appoinment_type_id,
                                         :start_at, :end_at, :notes,
-                                        :pet_id)
+                                        :pet_id, :local_id)
     end
 end

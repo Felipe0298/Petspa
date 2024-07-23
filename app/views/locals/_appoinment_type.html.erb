@@ -1,0 +1,19 @@
+<div id="<%= dom_id appoinment_type %>">
+  <%= link_to new_appoinment_path(appoinment_type: appoinment_type.name.parameterize, local_id: local.id), class: "p-6 border shadow-xl rounded-xl block hover:shadow-lg transition ease-in duration-300 relative overflow-hidden" do %>
+    <%#= render(ColorDivComponent.new(appoinment_type: appoinment_type)) %>
+    <h3 class="font-medium text-2xl"><%= appoinment_type.name %></h3>
+    <p class="text-gray-500">View appoinment page</p>
+
+    <% if appoinment_type.payment_required? %>
+      <div class="mt-3 pt-3 border-t">
+        <p>
+          <strong>Payment required</strong>
+        </p>
+        <p>
+          <strong>Price:</strong>
+          <%= number_to_currency(appoinment_type.price) %>
+        </p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

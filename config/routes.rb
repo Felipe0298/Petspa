@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   resources :pets
   resources :locals
   resources :cities
-  resources :appointment_types
-  resources :appointments
+  resources :appoinment_types
+  resources :appoinments
 
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
   get '/dashboard_admin', to: 'home#dashboard_admin', as: 'dashboard_admin'
