@@ -1,11 +1,10 @@
 class Authentication::SessionsController < ApplicationController
   def new
-    
   end
 
   def create
-    @user = User.find_by("email = :login OR username = :login", { login: params[:login]})
-    if @user.authenticate(params[:password])
+    @user = User.find_by("email = :login OR username = :login", { login: params[:login] })
+    if @user && @user.authenticate(params[:password])
       login @user
       redirect_to root_path, notice: "Logged in successfully"
     else
