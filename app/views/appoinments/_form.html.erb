@@ -30,14 +30,14 @@
     <%= form.rich_text_area :notes %>
   </div>
 
-    <% if @appoinment.new_record? %>
+  <% if @appoinment.new_record? %>
     <div class="mb-6">
       <div class="rounded border-slate-300 border shadow-sm bg-white py-6 px-10 inline-block relative">
-        <%= form.label :appoinment_type_id, "appoinment type"%>
+        <%= form.label :appoinment_type_id, "appoinment type" %>
         <input type="hidden" name="appoinment[appoinment_type_id]" value="<%= @appoinment_type.id %>">
         <div class="flex items-start">
           <div class="text-3xl font-bold mr-3"><%= @appoinment_type.name %>
-            <%#= render(BadgedComponent.new(appoinment_type: @appoinment_type)) %>
+            <%= render(BadgedComponent.new(appoinment_type: @appoinment_type)) %>
           </div>
         </div>
       </div>

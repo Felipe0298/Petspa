@@ -38,17 +38,17 @@ local3 = Local.create!(
 
 appoinment_type1 = AppoinmentType.create!(
   name: "Baño", payment_required: true,
-  user: user, price: 100
+  user: user, price: 100, color: "#38bdf8"
 )
 
 appoinment_type2 = AppoinmentType.create!(
   name: "Baño y corte", payment_required: true,
-  user: user, price: 180
+  user: user, price: 180, color: "#fbbf24"
 )
 
 appoinment_type3 = AppoinmentType.create!(
   name: "Session spa premium", payment_required: true,
-  user: user, price: 250
+  user: user, price: 250, color: "#34d399"
 )
 
 puts "Seed finished"
