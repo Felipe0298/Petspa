@@ -1,0 +1,32 @@
+<div id="<%= dom_id appoinment %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Status:</strong>
+    <%= appoinment.status %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">User:</strong>
+    <%= appoinment.user_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Appoinment type:</strong>
+    <%= appoinment.appoinment_type_id %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Start at:</strong>
+    <%= appoinment.start_at %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">End at:</strong>
+    <%= appoinment.end_at %>
+  </p>
+
+  <% if action_name != "show" %>
+    <%= link_to "Show this appoinment", appoinment, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to "Edit this appoinment", edit_appoinment_path(appoinment), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
+    <hr class="mt-6">
+  <% end %>
+</div>
