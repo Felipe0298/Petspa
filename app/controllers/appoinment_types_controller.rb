@@ -23,8 +23,7 @@ class AppoinmentTypesController < ApplicationController
 
   # POST /appoinment_types or /appoinment_types.json
   def create
-    @appoinment_type = AppoinmentType.new(appoinment_type_params)
-    @appoinment_type.user = current_user
+    @appoinment_type =current_user.appoinment_types.new(appoinment_type_params.merge(user: current_user))
     respond_to do |format|
       if @appoinment_type.save
         format.html { redirect_to appoinment_type_url(@appoinment_type), notice: "Appoinment type was successfully created." }
