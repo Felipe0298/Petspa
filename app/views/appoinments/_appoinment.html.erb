@@ -1,27 +1,10 @@
-<div id="<%= dom_id appoinment %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= appoinment.status %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Cliente:</strong>
-    <%= appoinment.client.first_name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Start at:</strong>
-    <%= appoinment.start_at %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">End at:</strong>
-    <%= appoinment.end_at %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this appoinment", appoinment, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this appoinment", edit_appoinment_path(appoinment), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
-</div>
+<tr id="<%= dom_id appoinment %>">
+  <td class="border border-slate-300 bg-white text-left p-4"><%= appoinment.status %></td>
+  <td class="border border-slate-300 bg-white text-left p-4"><%= appoinment.pet&.name %></td>
+  <td class="border border-slate-300 bg-white text-left p-4"><%= appoinment.pet&.breed %></td>
+  <td class="border border-slate-300 bg-white text-left p-4"><%= appoinment.pet&.kind %></td>
+  <td class="border border-slate-300 bg-white text-left p-4"><%= appoinment.start_at.strftime('%b %e, %Y at %l:%M %p') %></td>
+  <td class="border border-slate-300 bg-white text-left p-4"><%= appoinment.end_at.strftime('%b %e, %Y at %l:%M %p') %></td>
+  <td class="border border-slate-300 bg-white text-left p-4"><%= appoinment.appoinment_type.name %></td>
+  <td class="border border-slate-300 bg-white text-left p-4"><%= appoinment.payments&.any? ? appoinment.payments&.first.billing_status : "No required" %></td>
+</tr>

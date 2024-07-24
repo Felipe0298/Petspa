@@ -22,6 +22,7 @@ class HomeController < ApplicationController
     else
       @locals = Local.all
     end
+    @appoinments = current_user.appoinments.order(created_at: :desc).limit(5)
   end
 
   def dashboard_admin
