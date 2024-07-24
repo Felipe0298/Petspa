@@ -1,0 +1,14 @@
+<tr id="<%= dom_id appoinment %>">
+  <td data-label="Status" class="border border-slate-300 bg-white text-left p-4">
+    <%= form_with(model: appoinment, method: :patch) do |form| %>
+      <%= form.select :status, options_for_select(Appoinment.statuses.map { |key, value| [key.capitalize, key] }, form.object.status), {}, { onchange: "this.form.submit()"} %>
+    <% end %>
+  </td>
+  <td data-label="Pet Name" class="border border-slate-300 bg-white text-left p-4"><%= appoinment.pet&.name %></td>
+  <td data-label="Breed" class="border border-slate-300 bg-white text-left p-4"><%= appoinment.pet&.breed %></td>
+  <td data-label="Kind" class="border border-slate-300 bg-white text-left p-4"><%= appoinment.pet&.kind %></td>
+  <td data-label="Starts" class="border border-slate-300 bg-white text-left p-4"><%= appoinment.start_at.strftime('%b %e, %Y at %l:%M %p') %></td>
+  <td data-label="Ends" class="border border-slate-300 bg-white text-left p-4"><%= appoinment.end_at.strftime('%b %e, %Y at %l:%M %p') %></td>
+  <td data-label="Appoinment Type" class="border border-slate-300 bg-white text-left p-4"><%= appoinment.appoinment_type.name %></td>
+  <td data-label="Paid" class="border border-slate-300 bg-white text-left p-4"><%= appoinment.payments&.any? ? appoinment.payments&.first.billing_status : "No required" %></td>
+</tr>

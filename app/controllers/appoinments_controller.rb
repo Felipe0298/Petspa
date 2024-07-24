@@ -1,10 +1,10 @@
 class AppoinmentsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_appoinment, only: %i[ show edit update destroy ]
 
   # GET /appoinments or /appoinments.json
   def index
-    @appoinments = Appoinment.all
+    @appoinments = Appoinment.order(created_at: :desc)
+    @pagy, @appoinments = pagy(@appoinments, items: 10)
   end
 
   # GET /appoinments/1 or /appoinments/1.json
@@ -14,14 +14,13 @@ class AppoinmentsController < ApplicationController
   # GET /appoinments/new
   def new
     @appoinment = Appoinment.new
-    appoinment_type = params[:appoinment_type].gsub("-"," ")
+    appoinment_type = params[:appoinment_type].gsub("-", " ")
     @appoinment_type = AppoinmentType.find_by(name: appoinment_type)
-    @appoinment.payments.build
+    @appoinment.payments.build # This line is added to the new action to build a payment object for the appoinment.
   end
 
   # GET /appoinments/1/edit
   def edit
-
   end
 
   # POST /appoinments or /appoinments.json
@@ -44,11 +43,9 @@ class AppoinmentsController < ApplicationController
   def update
     respond_to do |format|
       if @appoinment.update(appoinment_params)
-        format.html { redirect_to appoinment_url(@appoinment), notice: "Appoinment was successfully updated." }
-        format.json { render :show, status: :ok, location: @appoinment }
+        format.html { redirect_to appoinments_path, notice: "Appoinment was successfully updated." }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @appoinment.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,9 +68,11 @@ class AppoinmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def appoinment_params
-      params.require(:appoinment).permit(:status, :appoinment_type_id,
-                                        :start_at, :end_at, :notes,
-                                        :pet_id, :local_id,
-                                        payments_attributes: [:id, :billing_status, :user_id, :receipt, :_destroy] )
+      params.require(:appoinment).permit(
+        :status, :appoinment_type_id,
+        :start_at, :end_at,
+        :notes, :pet_id, :local_id,
+        payments_attributes: [:id, :billing_status, :user_id, :receipt, :_destroy]
+      )
     end
 end
