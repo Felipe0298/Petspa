@@ -19,7 +19,7 @@ class CityComponent < ViewComponent::Base
   end
 
   def classes
-    "city text-gray-600 px-10 py-2 rounded-2xl drop-shadow-sm hover:bg-gray-300 #{background}"
+    "city text-gray-600 px-5 py-2 rounded-2xl drop-shadow-sm hover:bg-gray-300 #{background}"
   end
 
   private

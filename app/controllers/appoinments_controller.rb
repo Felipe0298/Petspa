@@ -16,6 +16,7 @@ class AppoinmentsController < ApplicationController
     @appoinment = Appoinment.new
     appoinment_type = params[:appoinment_type].gsub("-"," ")
     @appoinment_type = AppoinmentType.find_by(name: appoinment_type)
+    @appoinment.payments.build
   end
 
   # GET /appoinments/1/edit
@@ -72,6 +73,7 @@ class AppoinmentsController < ApplicationController
     def appoinment_params
       params.require(:appoinment).permit(:status, :appoinment_type_id,
                                         :start_at, :end_at, :notes,
-                                        :pet_id, :local_id)
+                                        :pet_id, :local_id,
+                                        payments_attributes: [:id, :billing_status, :user_id, :receipt, :_destroy] )
     end
 end

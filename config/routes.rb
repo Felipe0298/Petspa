@@ -7,13 +7,14 @@ Rails.application.routes.draw do
     resources :password_resets, only: [:new, :create], path: '/password_resets', path_names: { new: '/' }
     patch '/password_resets', to: 'password_resets#update'
   end
-
+  
   resources :pets
   resources :locals
   resources :cities
   resources :appoinment_types
   resources :appoinments
-
+  resources :payments
+  
   get '/dashboard', to: 'home#dashboard', as: 'dashboard'
   get '/dashboard_admin', to: 'home#dashboard_admin', as: 'dashboard_admin'
   get '/welcome', to: 'home#welcome', as: 'welcome'

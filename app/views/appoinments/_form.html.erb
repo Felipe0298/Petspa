@@ -1,4 +1,7 @@
-<%= form_with(model: appoinment, class: "contents") do |form| %>
+<%= form_with(model: appoinment, class: "contents", data: {
+  controller: 'nested-form',
+  nested_form_wrapper_selector_value: '.nested-form-wrapper'
+}) do |form| %>
   <% if appoinment.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(appoinment.errors.count, "error") %> prohibited this appoinment from being saved:</h2>
@@ -22,7 +25,7 @@
     <%= form.label :pet_id %>
     <%= form.collection_select :pet_id, current_user.pets, :id, :name, { prompt: "Select Pet" }, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
-  
+
   <%= form.hidden_field :local_id, value: params[:local_id] %>
 
   <div class="mb-6">
@@ -33,10 +36,11 @@
   <% if @appoinment.new_record? %>
     <div class="mb-6">
       <div class="rounded border-slate-300 border shadow-sm bg-white py-6 px-10 inline-block relative">
-        <%= form.label :appoinment_type_id, "appoinment type" %>
+        <%= form.label :appoinment_type_id, "appoinment type"%>
         <input type="hidden" name="appoinment[appoinment_type_id]" value="<%= @appoinment_type.id %>">
         <div class="flex items-start">
           <div class="text-3xl font-bold mr-3"><%= @appoinment_type.name %>
+            <!-- <div class="absolute top-3 right-3 w-3 h-3 rounded-full" style="background-color: <%= @appoinment_type.color %>;"></div> -->
             <%= render(BadgedComponent.new(appoinment_type: @appoinment_type)) %>
           </div>
         </div>
@@ -55,6 +59,12 @@
     <%= form.label :end_at %>
     <%= form.datetime_field :end_at, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
+
+  <h3 class="font-bold text-lg mb-3">Payment details</h3>
+
+  <%= form.fields_for :payments do |payment_fields| %>
+    <%= render "appoinments/appoinment_payment_form", f: payment_fields %>
+  <% end %>
 
   <div class="inline">
     <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
